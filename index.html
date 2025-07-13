@@ -1,24 +1,669 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>trust-bitcoin-lend</title>
-    <meta name="description" content="Lovable Generated Project" />
-    <meta name="author" content="Lovable" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BitLend - Bitcoin-Native P2P Lending</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="min-h-screen bg-gradient-trust">
+    <!-- Header -->
+    <header class="border-b bg-card/80 backdrop-blur-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bitcoin h-8 w-8 text-primary"><path d="M11.76 18.85c-1.25 0-2.4-.56-3.15-1.32a3.93 3.93 0 0 1 0-5.57c.75-.76 1.9-1.32 3.15-1.32h.1c1.25 0 2.4.56 3.15 1.32a3.93 3.93 0 0 1 0 5.57c-.75.76-1.9 1.32-3.15 1.32h-.1Z"/><path d="M18.36 18.36a9 9 0 1 0-12.73-12.73A9 9 0 0 0 18.36 18.36Z"/></svg>
+                <span class="text-xl font-bold text-foreground">BitLend</span>
+            </div>
+            <nav class="hidden md:flex items-center gap-6">
+                <a href="#lending" class="text-muted-foreground hover:text-foreground transition-smooth">Lending</a>
+                <a href="#borrowing" class="text-muted-foreground hover:text-foreground transition-smooth">Borrowing</a>
+                <a href="#reputation" class="text-muted-foreground hover:text-foreground transition-smooth">Reputation</a>
+                <a href="#about" class="text-muted-foreground hover:text-foreground transition-smooth">About</a>
+                <a href="#documentation" class="text-muted-foreground hover:text-foreground transition-smooth">Documentation</a>
+            </nav>
+            <div class="flex items-center gap-3">
+                <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2">Connect Wallet</button>
+                <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2">Get Started</button>
+            </div>
+        </div>
+    </header>
 
-    <meta property="og:title" content="trust-bitcoin-lend" />
-    <meta property="og:description" content="Lovable Generated Project" />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <!-- Hero Section -->
+    <section class="relative py-20 lg:py-32 overflow-hidden">
+        <div class="container mx-auto px-4 grid lg:grid-cols-2 gap-12 items-center">
+            <div class="space-y-8">
+                <div class="space-y-4">
+                    <span class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 bg-primary/10 text-primary border-primary/20">
+                        Decentralized Finance
+                    </span>
+                    <h1 class="text-4xl lg:text-6xl font-bold text-foreground leading-tight">
+                        Bitcoin-Native
+                        <span class="text-primary block">P2P Lending</span>
+                    </h1>
+                    <p class="text-xl text-muted-foreground leading-relaxed">
+                        Lend and borrow Bitcoin directly with peers. Built on reputation, secured by blockchain, powered by trust.
+                    </p>
+                </div>
+                
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8 rounded-md text-lg flex items-center gap-2">
+                        Start Lending <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right h-5 w-5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                    </button>
+                    <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-8 rounded-md text-lg flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wallet h-5 w-5"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h12a2 2 0 0 1 0 4H5a2 2 0 0 0 0 4h12a2 2 0 0 1 0 4h-3"/><path d="M2 20v-2a2 2 0 0 1 2-2h16"/></svg>
+                        Borrow Bitcoin
+                    </button>
+                </div>
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@lovable_dev" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-  </head>
+                <div class="flex items-center gap-8 pt-8">
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-foreground">$2.4M+</div>
+                        <div class="text-sm text-muted-foreground">Total Lent</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-foreground">1,247</div>
+                        <div class="text-sm text-muted-foreground">Active Lenders</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-foreground">99.2%</div>
+                        <div class="text-sm text-muted-foreground">Repayment Rate</div>
+                    </div>
+                </div>
+            </div>
 
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+            <div class="relative">
+                <img 
+                    src="public/hero-lending.jpg" 
+                    alt="Bitcoin P2P Lending Platform" 
+                    class="rounded-2xl shadow-depth w-full animate-float"
+                />
+                <div class="absolute inset-0 bg-gradient-bitcoin opacity-10 rounded-2xl"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-20 bg-card/50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+                    Why Choose BitLend?
+                </h2>
+                <p class="text-xl text-muted-foreground max-w-2xl mx-auto">
+                    Experience the future of decentralized lending with our reputation-based system
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="rounded-xl border bg-card text-card-foreground shadow group hover:shadow-card transition-smooth">
+                    <div class="flex flex-col space-y-1.5 p-6">
+                        <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-smooth">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield h-6 w-6 text-primary"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        </div>
+                        <h3 class="font-semibold leading-none tracking-tight">Reputation-Based Trust</h3>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <p class="text-sm text-muted-foreground">
+                            Build trust through verifiable transaction history. Your reputation determines your lending rates and borrowing limits.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="rounded-xl border bg-card text-card-foreground shadow group hover:shadow-card transition-smooth">
+                    <div class="flex flex-col space-y-1.5 p-6">
+                        <div class="w-12 h-12 bg-success/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-success/20 transition-smooth">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bitcoin h-6 w-6 text-success"><path d="M11.76 18.85c-1.25 0-2.4-.56-3.15-1.32a3.93 3.93 0 0 1 0-5.57c.75-.76 1.9-1.32 3.15-1.32h.1c1.25 0 2.4.56 3.15 1.32a3.93 3.93 0 0 1 0 5.57c-.75.76-1.9 1.32-3.15 1.32h-.1Z"/><path d="M18.36 18.36a9 9 0 1 0-12.73-12.73A9 9 0 0 0 18.36 18.36Z"/></svg>
+                        </div>
+                        <h3 class="font-semibold leading-none tracking-tight">Native Bitcoin</h3>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <p class="text-sm text-muted-foreground">
+                            Pure Bitcoin transactions without wrapping or tokens. Keep the integrity of the original Bitcoin network.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="rounded-xl border bg-card text-card-foreground shadow group hover:shadow-card transition-smooth">
+                    <div class="flex flex-col space-y-1.5 p-6">
+                        <div class="w-12 h-12 bg-warning/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-warning/20 transition-smooth">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trending-up h-6 w-6 text-warning"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+                        </div>
+                        <h3 class="font-semibold leading-none tracking-tight">Competitive Rates</h3>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <p class="text-sm text-muted-foreground">
+                            Enjoy market-driven interest rates based on supply and demand, with rates starting from 3.5% APY.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="rounded-xl border bg-card text-card-foreground shadow group hover:shadow-card transition-smooth">
+                    <div class="flex flex-col space-y-1.5 p-6">
+                        <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-smooth">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users h-6 w-6 text-accent-foreground"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87c-.51-.11-.98-.31-1.43-.58"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        </div>
+                        <h3 class="font-semibold leading-none tracking-tight">Peer-to-Peer</h3>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <p class="text-sm text-muted-foreground">
+                            Direct lending between individuals. No banks, no intermediaries, just pure peer-to-peer finance.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="rounded-xl border bg-card text-card-foreground shadow group hover:shadow-card transition-smooth">
+                    <div class="flex flex-col space-y-1.5 p-6">
+                        <div class="w-12 h-12 bg-destructive/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-destructive/20 transition-smooth">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bar-chart-3 h-6 w-6 text-destructive"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+                        </div>
+                        <h3 class="font-semibold leading-none tracking-tight">Transparent Analytics</h3>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <p class="text-sm text-muted-foreground">
+                            Real-time dashboards showing market trends, your portfolio performance, and reputation metrics.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="rounded-xl border bg-card text-card-foreground shadow group hover:shadow-card transition-smooth">
+                    <div class="flex flex-col space-y-1.5 p-6">
+                        <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-smooth">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle h-6 w-6 text-primary"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+                        </div>
+                        <h3 class="font-semibold leading-none tracking-tight">Smart Contracts</h3>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <p class="text-sm text-muted-foreground">
+                            Automated loan management with smart contracts ensuring trustless execution and timely repayments.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+                    How It Works
+                </h2>
+                <p class="text-xl text-muted-foreground max-w-2xl mx-auto">
+                    Start lending or borrowing in three simple steps
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+                <div class="text-center space-y-6">
+                    <div class="w-16 h-16 bg-gradient-bitcoin rounded-full flex items-center justify-center mx-auto shadow-bitcoin">
+                        <span class="text-2xl font-bold text-white">1</span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-foreground">Connect & Verify</h3>
+                    <p class="text-muted-foreground">
+                        Connect your Bitcoin wallet and complete identity verification to build your reputation score.
+                    </p>
+                </div>
+
+                <div class="text-center space-y-6">
+                    <div class="w-16 h-16 bg-gradient-depth rounded-full flex items-center justify-center mx-auto shadow-depth">
+                        <span class="text-2xl font-bold text-white">2</span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-foreground">Browse & Match</h3>
+                    <p class="text-muted-foreground">
+                        Browse lending opportunities or loan requests. Our algorithm matches you with compatible peers.
+                    </p>
+                </div>
+
+                <div class="text-center space-y-6">
+                    <div class="w-16 h-16 bg-success rounded-full flex items-center justify-center mx-auto shadow-sm">
+                        <span class="text-2xl font-bold text-white">3</span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-foreground">Lend & Earn</h3>
+                    <p class="text-muted-foreground">
+                        Complete the transaction through smart contracts and start earning or repaying according to terms.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-depth text-white">
+        <div class="container mx-auto px-4 text-center">
+            <div class="max-w-3xl mx-auto space-y-8">
+                <h2 class="text-3xl lg:text-4xl font-bold">
+                    Ready to Join the Future of Finance?
+                </h2>
+                <p class="text-xl opacity-90">
+                    Start building your reputation and earning with Bitcoin today
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8 rounded-md text-lg flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dollar-sign h-5 w-5"><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        Start Lending Now
+                    </button>
+                    <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-8 rounded-md text-lg border-white text-white hover:bg-white hover:text-accent">
+                        Learn More
+                    </button>
+                </div>
+                
+                <div class="flex items-center justify-center gap-4 pt-8">
+                    <div class="flex items-center gap-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star h-5 w-5 fill-warning text-warning"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star h-5 w-5 fill-warning text-warning"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star h-5 w-5 fill-warning text-warning"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star h-5 w-5 fill-warning text-warning"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star h-5 w-5 fill-warning text-warning"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <span class="text-lg">4.9/5 from 1,200+ users</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Documentation Section -->
+    <section id="documentation" class="py-20 bg-card/50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+                    Documentation
+                </h2>
+            </div>
+            <div class="prose dark:prose-invert max-w-none">
+                <h3>BuildingTrust.md</h3>
+                <p>how can someone establish a positive credit score on the platform without using a down payment or referencing current credit models?</p>
+                <p>Absolutely! One of the strengths of a blockchain-based lending platform like <strong>P3 Lending</strong> is that it can empower users to build a positive credit history based solely on their on-platform actions, rather than relying on traditional credit scores or requiring upfront collateral. Here’s how you can design such a system:</p>
+                <h2>Establishing a Positive Credit Score Without Down Payment or Traditional Credit Models</h2>
+                <h3>1. <strong>Start with Microloans or Community-Backed Loans</strong></h3>
+                <ul>
+                    <li><strong>Microloans:</strong> Allow new users to access small, low-risk loans with minimal requirements. These loans are easy to repay and serve as a first step in building trust.</li>
+                    <li><strong>Community Guarantees:</strong> Let established users or the platform’s charity pool vouch for newcomers, enabling them to borrow without collateral. If the new user repays, both their score and the guarantor’s reputation improve.</li>
+                </ul>
+                <h3>2. <strong>Reputation Through On-Chain Actions</strong></h3>
+                <ul>
+                    <li><strong>Timely Repayment:</strong> Every successful, on-time repayment increases the user’s reputation score.</li>
+                    <li><strong>Consistent Participation:</strong> Regular activity (borrowing, lending, interacting with the platform) is rewarded.</li>
+                    <li><strong>Positive Peer Reviews:</strong> After each transaction, counterparties can leave feedback, which is recorded on-chain and factors into the user’s score.</li>
+                </ul>
+                <h3>3. <strong>Gamified Trust-Building</strong></h3>
+                <ul>
+                    <li><strong>Achievement Badges:</strong> Award badges for milestones like “First Loan Repaid” or “10 Successful Transactions.”</li>
+                    <li><strong>Streak Bonuses:</strong> Offer incremental reputation boosts for consecutive successful repayments.</li>
+                </ul>
+                <h3>4. <strong>Charity-Backed Onboarding</strong></h3>
+                <ul>
+                    <li><strong>Charity Pool Microloans:</strong> Use a portion of platform proceeds to fund microloans for new users. Repaying these loans helps users establish a positive record without risking their own funds up front.</li>
+                </ul>
+                <h3>5. <strong>Transparent, Algorithmic Scoring</strong></h3>
+                <ul>
+                    <li><strong>Open-Source Reputation Algorithm:</strong> Clearly define how actions impact scores, so users know exactly how to improve.</li>
+                    <li><strong>No External Data:</strong> Only on-platform actions affect the score, ensuring fairness and inclusivity.</li>
+                </ul>
+                <h2>Example User Journey</h2>
+                <ol>
+                    <li><strong>Sign Up:</strong> User creates a pseudonymous blockchain identity.</li>
+                    <li><strong>Apply for Microloan:</strong> User requests a small, charity-backed or community-guaranteed loan.</li>
+                    <li><strong>Repay Loan:</strong> User repays on time, earning a positive reputation increment.</li>
+                    <li><strong>Access Larger Loans:</strong> With a few successful repayments, the user qualifies for larger loans or better terms.</li>
+                    <li><strong>Grow Reputation:</strong> Continued positive actions build a robust credit profile, all transparently recorded on-chain.</li>
+                </ol>
+                <h2>Why This Works</h2>
+                <ul>
+                    <li><strong>No Barriers:</strong> Users aren’t excluded due to lack of traditional credit history or inability to provide collateral.</li>
+                    <li><strong>Merit-Based:</strong> Reputation is earned through real actions, not background or external factors.</li>
+                    <li><strong>Transparent:</strong> All scoring criteria and transaction histories are open and auditable, building trust in the system.</li>
+                </ul>
+                <p><strong>P3 Lending</strong> can thus empower anyone, anywhere, to build a positive credit history and access financial services—no down payment, no legacy credit checks, just transparent, blockchain-powered opportunity.</p>
+
+                <h3>Escrow-CharitableDonations.md</h3>
+                <p>The platform would like to act as an escrow and proceeds would help support various charities</p>
+                <h2>Enhanced P3 Lending Platform: Escrow and Charitable Support</h2>
+                <h3>Escrow Functionality</h3>
+                <ul>
+                    <li><strong>Platform as Escrow:</strong> P3 Lending can serve as a trusted escrow agent, securely holding loaned Bitcoin until all contract conditions are met.</li>
+                    <li><strong>Smart Contract Automation:</strong> Escrow operations are managed through smart contracts, ensuring that funds are only released when both borrower and lender obligations are fulfilled.</li>
+                    <li><strong>Dispute Resolution:</strong> In case of disagreements, the platform can mediate and enforce outcomes based on transparent, pre-defined rules.</li>
+                </ul>
+                <h3>Charitable Contributions</h3>
+                <ul>
+                    <li><strong>Proceeds Allocation:</strong> A portion of transaction fees or platform profits can be automatically directed to support various charities.</li>
+                    <li><strong>Transparent Giving:</strong> All charitable donations are recorded on the blockchain, allowing users to verify contributions and track the impact.</li>
+                    <li><strong>User Participation:</strong> Users may have the option to select preferred charities or causes during the lending process.</li>
+                    <li><strong>Periodic Reporting:</strong> The platform can publish regular reports detailing the amount raised and distributed to each charity, enhancing trust and community engagement.</li>
+                </ul>
+                <h3>Benefits</h3>
+                <ul>
+                    <li><strong>Trust and Security:</strong> Acting as escrow increases user confidence, ensuring fair and secure transactions.</li>
+                    <li><strong>Social Impact:</strong> Supporting charities aligns the platform with broader social good, appealing to socially conscious users.</li>
+                    <li><strong>Transparency:</strong> Blockchain-based records provide full visibility into both escrow operations and charitable distributions.</li>
+                    <li><strong>Community Engagement:</strong> Allowing users to participate in charity selection fosters a sense of ownership and shared mission.</li>
+                </ul>
+                <h3>Example Workflow</h3>
+                <ol>
+                    <li><strong>Loan Initiation:</strong> Lender and borrower agree on terms; funds are placed in escrow.</li>
+                    <li><strong>Loan Fulfillment:</strong> Upon completion of repayment, funds are released to the lender.</li>
+                    <li><strong>Charity Support:</strong> A percentage of platform fees from the transaction is automatically donated to selected charities.</li>
+                    <li><strong>Reporting:</strong> Both parties can view donation records and platform-wide impact statistics.</li>
+                </ol>
+                <p>This approach positions P3 Lending not only as a secure and innovative financial platform but also as a force for positive social change.</p>
+
+                <h3>Investors.md</h3>
+                <h2>P₃ Lending: Investor & Partnership Opportunities</h2>
+                <h3>Investor Section</h3>
+                <h4>Why Invest in P₃ Lending?</h4>
+                <ul>
+                    <li><strong>Exposure to DeFi and Bitcoin Growth:</strong><br>Participate in the expanding decentralized finance sector, leveraging Bitcoin as a central, liquid currency.</li>
+                    <li><strong>Transparent Operations:</strong><br>All transactions, revenue streams, and platform activities are recorded on-chain for full auditability.</li>
+                    <li><strong>Diverse Revenue Streams:</strong><br>Earn from transaction fees, interest on loans, and potential platform tokens.</li>
+                    <li><strong>Risk Mitigation:</strong><br>Smart contracts and transparent reputation systems reduce fraud and default risk.</li>
+                    <li><strong>Social Impact:</strong><br>A portion of proceeds supports global charities, adding ESG value to your investment.</li>
+                </ul>
+                <h4>Investor Benefits</h4>
+                <ul>
+                    <li>Early access to platform features and governance proposals.</li>
+                    <li>Regular reports on platform growth, revenue, and social impact.</li>
+                    <li>Opportunities to participate in exclusive funding rounds or token launches.</li>
+                    <li>Direct communication channels with the P₃ Lending team.</li>
+                </ul>
+                <h4>How to Get Involved</h4>
+                <ol>
+                    <li><strong>Register Interest:</strong><br>Submit your information via the investor contact form.</li>
+                    <li><strong>Review Investment Materials:</strong><br>Access whitepapers, financial projections, and security audits.</li>
+                    <li><strong>Participate in Demo Sessions:</strong><br>Join live walkthroughs and Q&A with the founding team.</li>
+                    <li><strong>Investment Options:</strong><br>Choose from equity, token, or revenue-sharing models.</li>
+                </ol>
+                <h3>Partnership Opportunities</h3>
+                <h4>For Blockchain Companies & Ecosystem Partners</h4>
+                <ul>
+                    <li><strong>API & Integration:</strong><br>Seamlessly connect your wallet, DeFi protocol, or analytics tool with P₃ Lending via robust APIs.</li>
+                    <li><strong>Co-Branding & Joint Campaigns:</strong><br>Launch co-marketing initiatives to reach new audiences and showcase integrated solutions.</li>
+                    <li><strong>Custom Modules:</strong><br>Collaborate on custom reputation, escrow, or reporting modules tailored to your ecosystem.</li>
+                </ul>
+                <h4>For Charities & Social Impact Organizations</h4>
+                <ul>
+                    <li><strong>Transparent Donation Tracking:</strong><br>Use P₃ Lending’s blockchain infrastructure to receive and track donations in real time.</li>
+                    <li><strong>Featured Causes:</strong><br>Become a featured charity on the platform, increasing visibility and donor engagement.</li>
+                </ul>
+                <h4>For Institutional Partners</h4>
+                <ul>
+                    <li><strong>Liquidity Provision:</strong><br>Supply liquidity pools for loans, earning yield while supporting financial inclusion.</li>
+                    <li><strong>Regulatory Collaboration:</strong><br>Work together on compliance, KYC, and best practices for decentralized lending.</li>
+                </ul>
+                <h4>Partnership Benefits</h4>
+                <ul>
+                    <li>Access to P₃ Lending’s growing user base and reputation system.</li>
+                    <li>Technical support and dedicated integration assistance.</li>
+                    <li>Joint press releases, webinars, and thought leadership opportunities.</li>
+                </ul>
+                <h4>How to Partner</h4>
+                <ol>
+                    <li><strong>Contact Us:</strong><br>Fill out the partnership inquiry form.</li>
+                    <li><strong>Discovery Call:</strong><br>Schedule a meeting to explore collaboration opportunities.</li>
+                    <li><strong>Integration & Launch:</strong><br>Work with our team to integrate and announce the partnership.</li>
+                </ol>
+                <h3>Ready to Connect?</h3>
+                <p><strong>Investors and partners are invited to contact us for a personalized demo, detailed materials, or to discuss collaboration opportunities.</strong></p>
+                <blockquote>
+                    <p><em>Empowering trust. Enabling opportunity. Building the future of decentralized lending—together.</em></p>
+                </blockquote>
+
+                <h3>KYC.md</h3>
+                <p>For a decentralized peer-to-peer lending platform like <strong>P₃ Lending</strong>, handling <strong>KYC (Know Your Customer) requirements</strong> during onboarding is a crucial balance between regulatory compliance and user privacy.</p>
+                <h3>Approaches to KYC Onboarding</h3>
+                <h4>1. <strong>Tiered KYC Structure</strong></h4>
+                <ul>
+                    <li><strong>Low-Value Transactions:</strong><br>Allow new users to access microloans and basic features with minimal or no KYC, reducing friction and encouraging participation.</li>
+                    <li><strong>Higher Tiers for Larger Transactions:</strong><br>As users seek higher-value loans or increased platform privileges, progressively require more robust KYC verification (e.g., government-issued ID, proof of address).</li>
+                </ul>
+                <h4>2. <strong>Decentralized Identity Solutions</strong></h4>
+                <ul>
+                    <li>Integrate with decentralized identity protocols (such as <strong>Self-Sovereign Identity (SSI)</strong>) to let users control their own credentials and share only what’s necessary.</li>
+                    <li>On-chain attestations can confirm KYC status without exposing sensitive data to the public.</li>
+                </ul>
+                <h4>3. <strong>Third-Party KYC Providers</strong></h4>
+                <ul>
+                    <li>Partner with reputable KYC service providers to handle verification securely and efficiently.</li>
+                    <li>Use APIs to confirm a user’s KYC status without storing personal data on your platform.</li>
+                </ul>
+                <h4>4. <strong>Privacy-Preserving KYC</strong></h4>
+                <ul>
+                    <li>Implement zero-knowledge proofs or similar cryptographic methods to verify user identity and eligibility without revealing underlying personal information.</li>
+                </ul>
+                <h3>UI/UX Considerations</h3>
+                <ul>
+                    <li><strong>Clear Onboarding Steps:</strong><br>Guide users through what information is required at each stage, why it’s needed, and how it’s protected.</li>
+                    <li><strong>Status Dashboard:</strong><br>Let users see their current verification level and what’s required to unlock additional features.</li>
+                    <li><strong>Assurances of Privacy:</strong><br>Clearly communicate how KYC data is handled, emphasizing security and minimal data retention.</li>
+                </ul>
+                <h3>Regulatory Compliance</h3>
+                <ul>
+                    <li>Ensure your KYC process aligns with relevant laws in your operating jurisdictions (AML, CFT, etc.).</li>
+                    <li>Regularly review and update your KYC policies as regulations evolve.</li>
+                </ul>
+                <h3>Messaging Example</h3>
+                <blockquote>
+                    <p><strong>Your Security, Your Privacy</strong><br>To keep P₃ Lending secure and compliant, we use a tiered KYC process. Start with basic features instantly, and unlock more as you verify your identity—always with your privacy in mind.</p>
+                </blockquote>
+
+                <h3>ProofofTrust.md</h3>
+                <p>How might using blockchain technology improve transparency in charity donations</p>
+                <p><strong>Blockchain technology</strong> can significantly improve transparency in charity donations by providing an immutable, publicly accessible ledger of all transactions. Here’s how this benefits charitable giving:</p>
+                <ul>
+                    <li><strong>Every donation is recorded on-chain</strong>, allowing anyone to verify when, where, and how much was donated. This prevents tampering or misreporting of funds.</li>
+                    <li><strong>Charity wallets and transactions are visible to the public</strong>, so donors can track their contributions from the moment they give to the moment the charity receives and uses the funds.</li>
+                    <li><strong>Smart contracts can automate the allocation and distribution of donations</strong>, ensuring that funds are released only when specific, transparent conditions are met.</li>
+                    <li><strong>Audit trails are permanent and cannot be altered</strong>, which builds trust with donors and holds organizations accountable for their financial stewardship.</li>
+                </ul>
+                <p>By leveraging blockchain, platforms like P3 Lending can offer donors confidence that their contributions are reaching the intended causes, and charities can demonstrate their impact with verifiable proof.</p>
+                <p>Citations:<br>[1] 1000001287.jpg <a href="https://pplx-res.cloudinary.com/image/upload/v1752415711/user_uploads/73036274/697caa46-ec79-4f69-bb27-fe4ac0e2b0d5/1000001287.jpg">https://pplx-res.cloudinary.com/image/upload/v1752415711/user_uploads/73036274/697caa46-ec79-4f69-bb27-fe4ac0e2b0d5/1000001287.jpg</a></p>
+
+                <h3>README.md</h3>
+                <h1>P3 Lending: Decentralized Peer-to-Peer Lending Platform Design</h1>
+                <h2>Overview</h2>
+                <p>P3 Lending is a decentralized peer-to-peer (P2P) lending platform designed to facilitate direct loans between users. The platform leverages blockchain technology and uses Bitcoin as its central currency. A core feature is its reliance on the reputation built from historical transactions, ensuring trust and transparency without the need for intermediaries.</p>
+                <h2>Key Features</h2>
+                <h3>1. Decentralization</h3>
+                <p>Operates without a central authority.</p>
+                <p>All transactions and agreements are recorded on the blockchain, ensuring transparency and immutability.</p>
+                <h3>2. Peer-to-Peer Lending</h3>
+                <p>Connects borrowers and lenders directly.</p>
+                <p>Eliminates traditional banking fees and overhead.</p>
+                <h3>3. Reputation System</h3>
+                <p>Users build a reputation profile based on their transaction history.</p>
+                <p>Reputation influences borrowing limits, interest rates, and trustworthiness.</p>
+                <p>Reputation data is stored on-chain and is tamper-proof.</p>
+                <h3>4. Bitcoin as Central Currency</h3>
+                <p>All loans, repayments, and collateral are denominated in Bitcoin.</p>
+                <p>Global accessibility and liquidity.</p>
+                <h3>5. Smart Contracts</h3>
+                <p>Loan agreements are enforced by smart contracts.</p>
+                <p>Automated repayments, collateral management, and dispute resolution.</p>
+                <h2>Platform Workflow</h2>
+                <h3>User Onboarding</h3>
+                <p>Users create decentralized identities.</p>
+                <p>Initial verification may be required for anti-fraud measures.</p>
+                <h3>Reputation Building</h3>
+                <p>Every transaction (loan, repayment, default) updates the user’s reputation score.</p>
+                <p>Reputation is visible to all users, fostering trust.</p>
+                <h3>Loan Creation</h3>
+                <p>Borrowers create loan requests specifying amount, duration, and collateral (if required).</p>
+                <p>Lenders review requests and reputation scores before funding.</p>
+                <h3>Smart Contract Execution</h3>
+                <p>Once terms are agreed upon, a smart contract is deployed.</p>
+                <p>Funds are locked and released according to contract conditions.</p>
+                <h3>Repayment & Reputation Update</h3>
+                <p>Borrowers repay loans in Bitcoin.</p>
+                <p>Successful repayments boost reputation; defaults negatively impact it.</p>
+                <h2>Advantages</h2>
+                <p>Trustless Environment: Blockchain and reputation scores reduce the need for personal trust.</p>
+                <p>Global Participation: Anyone with Bitcoin can participate, regardless of location.</p>
+                <p>Lower Costs: No intermediaries means lower fees for both borrowers and lenders.</p>
+                <p>Transparency: All transactions are publicly auditable on the blockchain.</p>
+                <h2>Visual Identity</h2>
+                <p>The logo features a stylized "P" with a subscript "3," enclosed in colorful brackets, symbolizing the platform’s mathematical and decentralized ethos.</p>
+                <p>The use of vibrant colors and modern typography conveys innovation and accessibility.</p>
+                <h2>Potential Enhancements</h2>
+                <p>Integration with DeFi protocols for additional liquidity and risk management.</p>
+                <p>Cross-chain compatibility to support other cryptocurrencies.</p>
+                <p>Advanced reputation algorithms incorporating more nuanced behavioral data.</p>
+                <p>Mobile application for seamless access and notifications.</p>
+                <p>P3 Lending aims to revolutionize the lending landscape by combining the strengths of blockchain technology, Bitcoin, and a transparent reputation system to create a secure, efficient, and inclusive financial platform.</p>
+
+                <h3>SecureMicroLoans.md</h3>
+                <h2>Incentivizing Seasoned Borrowers: The Microloan Mentorship Program</h2>
+                <h3><strong>How It Works</strong></h3>
+                <p>1. <strong>Seasoned Borrowers as Microloan Sponsors</strong></p>
+                <ul>
+                    <li>Users with a strong repayment history (high reputation) can allocate a portion of their funds to back microloans for newcomers.</li>
+                    <li>These microloans are small, low-risk, and designed specifically for users with no established score.</li>
+                </ul>
+                <p>2. <strong>Smart Contract Security</strong></p>
+                <ul>
+                    <li>The platform uses smart contracts to manage funds, ensuring the sponsor’s investment is only at risk if the newcomer defaults.</li>
+                    <li>Repayment schedules and terms are transparent and enforced by code.</li>
+                </ul>
+                <p>3. <strong>Dual Incentives</strong></p>
+                <ul>
+                    <li><strong>For Sponsors:</strong> Earn a share of the microloan interest, plus receive platform rewards (e.g., tokens, reputation boosts, badges) for successful mentorships.</li>
+                    <li><strong>For Newcomers:</strong> Gain access to their first loan, and upon successful repayment, immediately build a positive reputation.</li>
+                </ul>
+                <p>4. <strong>Reputation Boosts</strong></p>
+                <ul>
+                    <li>Both parties receive positive reputation updates for successful microloan cycles.</li>
+                    <li>Sponsors who consistently back successful newcomers may unlock special status, badges, or even governance privileges.</li>
+                </ul>
+                <p>5. <strong>Risk Mitigation</strong></p>
+                <ul>
+                    <li>The platform can limit the number or total value of microloans a sponsor can back at once, ensuring diversification.</li>
+                    <li>Optionally, a portion of platform charity funds can serve as an insurance pool for sponsors.</li>
+                </ul>
+                <h3><strong>Sample User Flow</strong></h3>
+                <pre><code class="language-mermaid">graph TD
+    A[New User Joins] --> B[Requests Microloan]
+    B --> C[Seasoned Borrower Reviews & Sponsors]
+    C --> D[Smart Contract Issues Microloan]
+    D --> E[New User Repays On Time]
+    E --> F[Both Users Gain Reputation & Rewards]
+    F --> G[Seasoned Borrower Earns Interest/Badge]
+    E --> H[New User Now Eligible for Larger Loans]
+</code></pre>
+                <h3><strong>UI/UX Suggestions</strong></h3>
+                <ul>
+                    <li><strong>Mentorship Dashboard:</strong><br>Seasoned users see a list of newcomers seeking microloans and their basic profiles.</li>
+                    <li><strong>Sponsor Badges:</strong><br>Visual rewards for users who help many newcomers succeed.</li>
+                    <li><strong>Progress Tracking:</strong><br>Both parties can track repayment status and reputation growth in real time.</li>
+                </ul>
+                <h3><strong>Messaging Example</strong></h3>
+                <blockquote>
+                    <p><strong>Support the Next Wave of Borrowers!</strong><br>As a trusted member of P₃ Lending, you can sponsor microloans for newcomers. Help others build their reputation, earn rewards, and grow our community—securely and transparently.</p>
+                </blockquote>
+                <h2><strong>Benefits</strong></h2>
+                <ul>
+                    <li><strong>Community Growth:</strong> Encourages a positive, supportive culture.</li>
+                    <li><strong>Trust Building:</strong> New users get a fair start, while experienced users are rewarded for their trust.</li>
+                    <li><strong>Security:</strong> Smart contracts and risk controls protect all parties.</li>
+                </ul>
+
+                <h3>Transparency.md</h3>
+                <p>How will this enable people with negative social scores or public reporting agencies to be able to have an equal opportunity?</p>
+                <h2>Equal Opportunity on P3 Lending: Addressing Negative Social Scores and Public Reporting</h2>
+                <p>Your question touches on a critical issue in decentralized finance: <strong>How can a platform like P3 Lending ensure fair access for people with negative social scores or those flagged by public reporting agencies?</strong> Here’s how your platform can foster equal opportunity while maintaining trust and integrity:</p>
+                <h3>1. <strong>Transparent, Transaction-Based Reputation</strong></h3>
+                <ul>
+                    <li><strong>Objective Metrics:</strong><br>P3 Lending’s reputation system is built on <strong>on-chain transaction history</strong>, not subjective or external social scores. This means users are judged by their actions on the platform—such as timely repayments, successful lending, and overall participation—rather than by external or potentially biased sources.</li>
+                    <li><strong>No External Blacklists:</strong><br>The platform does <strong>not rely on third-party credit bureaus or social scoring agencies</strong>. This levels the playing field for users who may be unfairly penalized by traditional systems.</li>
+                </ul>
+                <h3>2. <strong>Pathways to Redemption and Growth</strong></h3>
+                <ul>
+                    <li><strong>Reputation Recovery:</strong><br>Users with a negative reputation on P3 Lending can <strong>improve their score through positive actions</strong>—such as repaying small loans on time or participating in community initiatives. This gives everyone a chance to rebuild trust.</li>
+                    <li><strong>Progressive Access:</strong><br>Borrowing limits and terms can be <strong>scaled based on recent positive activity</strong>, allowing users to gradually access better opportunities as they demonstrate reliability.</li>
+                </ul>
+                <h3>3. <strong>Privacy and Anonymity</strong></h3>
+                <ul>
+                    <li><strong>Pseudonymous Identities:</strong><br>Users are identified by blockchain addresses, not personal details. This protects against discrimination based on race, gender, nationality, or external social status.</li>
+                    <li><strong>No Public Shaming:</strong><br>Negative scores are not broadcast beyond what is necessary for risk assessment. The focus is on <strong>empowering improvement</strong>, not punishment.</li>
+                </ul>
+                <h3>4. <strong>Community and Charitable Support</strong></h3>
+                <ul>
+                    <li><strong>Charity-Backed Microloans:</strong><br>The platform can allocate a portion of its charitable funds to <strong>support users with low reputations</strong>—offering microloans or guarantees that help them rebuild standing.</li>
+                    <li><strong>Mentorship and Education:</strong><br>P3 Lending could offer <strong>educational resources or peer mentorship</strong> to help users understand how to improve their on-chain reputation.</li>
+                </ul>
+                <h3>5. <strong>Algorithmic Fairness</strong></h3>
+                <ul>
+                    <li><strong>Transparent Criteria:</strong><br>All reputation algorithms and risk assessments are <strong>open-source and auditable</strong>, ensuring fairness and preventing hidden biases.</li>
+                    <li><strong>Continuous Review:</strong><br>The community can propose and vote on changes to the reputation system, keeping it responsive and inclusive.</li>
+                </ul>
+                <h2><strong>Summary Table</strong></h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>How It Promotes Equal Opportunity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>On-chain, action-based reputation</td>
+                            <td>Judged by platform behavior, not external scores</td>
+                        </tr>
+                        <tr>
+                            <td>Reputation recovery</td>
+                            <td>Users can rebuild trust through positive actions</td>
+                        </tr>
+                        <tr>
+                            <td>Pseudonymous identities</td>
+                            <td>Protects privacy and prevents discrimination</td>
+                        </tr>
+                        <tr>
+                            <td>Charity-backed microloans</td>
+                            <td>Provides a safety net for those with low scores</td>
+                        </tr>
+                        <tr>
+                            <td>Open-source algorithms</td>
+                            <td>Ensures transparency and community oversight</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h2><strong>Conclusion</strong></h2>
+                <p><strong>P3 Lending</strong> is designed to empower all users—including those with negative social scores or adverse public reports—by focusing on transparent, on-chain actions and providing real opportunities for redemption and growth. This approach ensures that everyone, regardless of their past or external reputation, has a fair shot at financial inclusion and success.</p>
+
+                <h3>UI-Mockup.md</h3>
+                <pre><code class="language-mermaid">graph TD
+    A[User Signs Up] --> B[Optional: Community/Charity-Backed Microloan]
+    B --> C[User Receives Small Loan]
+    C --> D[User Repays Loan On Time]
+    D --> E[Reputation Score Increases]
+    E --> F[Access to Larger Loans & More Features]
+    D --> G[Receives Achievement Badge]
+    G --> E
+    F --> H[Continued Positive Actions]
+    H --> I[Reputation Grows, Unlocking Better Terms]
+</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 bg-card border-t">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="flex items-center gap-2 mb-4 md:mb-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bitcoin h-6 w-6 text-primary"><path d="M11.76 18.85c-1.25 0-2.4-.56-3.15-1.32a3.93 3.93 0 0 1 0-5.57c.75-.76 1.9-1.32 3.15-1.32h.1c1.25 0 2.4.56 3.15 1.32a3.93 3.93 0 0 1 0 5.57c-.75.76-1.9 1.32-3.15 1.32h-.1Z"/><path d="M18.36 18.36a9 9 0 1 0-12.73-12.73A9 9 0 0 0 18.36 18.36Z"/></svg>
+                    <span class="text-lg font-semibold text-foreground">BitLend</span>
+                </div>
+                <div class="flex items-center gap-6 text-sm text-muted-foreground">
+                    <a href="#" class="hover:text-foreground transition-smooth">Privacy</a>
+                    <a href="#" class="hover:text-foreground transition-smooth">Terms</a>
+                    <a href="#" class="hover:text-foreground transition-smooth">Security</a>
+                    <a href="#" class="hover:text-foreground transition-smooth">Support</a>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t text-center text-sm text-muted-foreground">
+                © 2024 BitLend. Decentralized peer-to-peer Bitcoin lending platform.
+            </div>
+        </div>
+    </footer>
+</body>
 </html>
