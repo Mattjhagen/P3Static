@@ -16,9 +16,81 @@
     body {
         font-family: 'Arial', sans-serif;
         line-height: 1.6;
-        color: #333;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #e0e0e0;
+        background: #0a0a0a;
         min-height: 100vh;
+        overflow-x: hidden;
+    }
+
+    /* Animated Space Background */
+    .space-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+    }
+
+    .stars {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+    }
+
+    .star {
+        position: absolute;
+        background: white;
+        border-radius: 50%;
+        animation: twinkle 2s infinite;
+    }
+
+    .star:nth-child(1) { width: 1px; height: 1px; top: 20%; left: 10%; animation-delay: 0s; }
+    .star:nth-child(2) { width: 2px; height: 2px; top: 30%; left: 80%; animation-delay: 0.5s; }
+    .star:nth-child(3) { width: 1px; height: 1px; top: 70%; left: 60%; animation-delay: 1s; }
+    .star:nth-child(4) { width: 1px; height: 1px; top: 10%; left: 40%; animation-delay: 1.5s; }
+    .star:nth-child(5) { width: 2px; height: 2px; top: 80%; left: 20%; animation-delay: 2s; }
+    .star:nth-child(6) { width: 1px; height: 1px; top: 50%; left: 90%; animation-delay: 0.3s; }
+    .star:nth-child(7) { width: 1px; height: 1px; top: 15%; left: 70%; animation-delay: 0.8s; }
+    .star:nth-child(8) { width: 2px; height: 2px; top: 60%; left: 30%; animation-delay: 1.2s; }
+    .star:nth-child(9) { width: 1px; height: 1px; top: 40%; left: 50%; animation-delay: 1.7s; }
+    .star:nth-child(10) { width: 1px; height: 1px; top: 90%; left: 70%; animation-delay: 0.2s; }
+
+    @keyframes twinkle {
+        0%, 100% { opacity: 0.3; }
+        50% { opacity: 1; }
+    }
+
+    .shooting-star {
+        position: absolute;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #fff, transparent);
+        animation: shooting 3s linear infinite;
+    }
+
+    .shooting-star:nth-child(1) {
+        top: 20%;
+        left: -100px;
+        width: 100px;
+        animation-delay: 0s;
+    }
+
+    .shooting-star:nth-child(2) {
+        top: 60%;
+        left: -100px;
+        width: 80px;
+        animation-delay: 2s;
+    }
+
+    @keyframes shooting {
+        0% { transform: translateX(0) rotate(45deg); opacity: 0; }
+        10% { opacity: 1; }
+        90% { opacity: 1; }
+        100% { transform: translateX(100vw) rotate(45deg); opacity: 0; }
     }
 
     .container {
@@ -29,9 +101,9 @@
 
     /* Header */
     header {
-        background: rgba(255, 255, 255, 0.1);
+        background: rgba(0, 0, 0, 0.7);
         backdrop-filter: blur(10px);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         position: fixed;
         width: 100%;
         top: 0;
@@ -48,19 +120,47 @@
 
     .logo {
         font-size: 2rem;
-        font-weight: bold;
+        font-weight: 300;
         color: white;
         text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.1rem;
+        font-family: 'Arial', sans-serif;
     }
 
-    .logo::before {
-        content: "[";
-        color: #ff6b6b;
+    .logo .bracket-left {
+        color: #ff6b9d;
+        font-size: 2.2rem;
+        font-weight: 300;
     }
 
-    .logo::after {
-        content: "]";
+    .logo .p-letter {
         color: #4ecdc4;
+        font-size: 2.2rem;
+        font-weight: 400;
+        margin: 0 0.1rem;
+    }
+
+    .logo .subscript {
+        color: #ffa726;
+        font-size: 1.4rem;
+        font-weight: 400;
+        position: relative;
+        top: 0.2rem;
+    }
+
+    .logo .bracket-right {
+        color: #4ecdc4;
+        font-size: 2.2rem;
+        font-weight: 300;
+    }
+
+    .logo .company-name {
+        color: #ffa726;
+        font-size: 1.8rem;
+        font-weight: 300;
+        margin-left: 0.3rem;
     }
 
     .nav-links {
@@ -120,11 +220,13 @@
 
     /* Main Content */
     .main-content {
-        background: white;
+        background: rgba(10, 10, 10, 0.9);
         border-radius: 20px 20px 0 0;
         margin-top: 40px;
         padding: 80px 0;
-        box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .section {
@@ -135,7 +237,7 @@
         font-size: 2.5rem;
         margin-bottom: 2rem;
         text-align: center;
-        color: #2c3e50;
+        color: #ffffff;
     }
 
     .section p {
@@ -143,7 +245,7 @@
         max-width: 800px;
         margin: 0 auto 3rem;
         text-align: center;
-        color: #666;
+        color: #b0b0b0;
     }
 
     /* Statistics Grid */
@@ -262,16 +364,27 @@
     }
 
     .team-member {
-        background: white;
+        background: rgba(20, 20, 20, 0.8);
         padding: 2rem;
         border-radius: 15px;
         text-align: center;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         transition: transform 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
     }
 
     .team-member:hover {
         transform: translateY(-5px);
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .team-member h3 {
+        color: #ffffff;
+    }
+
+    .team-member p {
+        color: #b0b0b0;
     }
 
     .team-avatar {
@@ -290,10 +403,11 @@
 
     /* Footer */
     footer {
-        background: #2c3e50;
+        background: rgba(0, 0, 0, 0.9);
         color: white;
         text-align: center;
         padding: 3rem 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .footer-content {
@@ -356,9 +470,31 @@
 
 </head>
 <body>
+    <div class="space-bg">
+        <div class="stars">
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="shooting-star"></div>
+            <div class="shooting-star"></div>
+        </div>
+    </div>
     <header>
         <nav class="container">
-            <a href="#" class="logo">P₃ Lending</a>
+            <a href="#" class="logo">
+                <span class="bracket-left">[</span>
+                <span class="p-letter">P</span>
+                <span class="subscript">3</span>
+                <span class="bracket-right">]</span>
+                <span class="company-name">Lending</span>
+            </a>
             <ul class="nav-links">
                 <li><a href="#about">About</a></li>
                 <li><a href="#features">Features</a></li>
@@ -373,7 +509,7 @@
 <section class="hero">
     <div class="container">
         <h1>Revolutionizing Decentralized Finance</h1>
-        <p>P₃ Lending: The future of peer-to-peer lending powered by blockchain technology, Bitcoin, and transparent reputation systems.</p>
+        <p><span class="bracket-left" style="color: #ff6b9d; font-size: 1.4rem;">[</span><span style="color: #4ecdc4; font-size: 1.4rem;">P</span><span style="color: #ffa726; font-size: 1rem; position: relative; top: 0.1rem;">3</span><span class="bracket-right" style="color: #4ecdc4; font-size: 1.4rem;">]</span> <span style="color: #ffa726;">Lending</span>: The future of peer-to-peer lending powered by blockchain technology, Bitcoin, and transparent reputation systems.</p>
         <a href="#investment" class="cta-button">Join Our Investment Round</a>
     </div>
 </section>
@@ -382,7 +518,7 @@
     <div class="container">
         <section id="about" class="section">
             <h2>Market Opportunity</h2>
-            <p>The global P2P lending market is projected to reach $1.2 trillion by 2030, growing at 28.8% CAGR. P₃ Lending positions itself at the intersection of traditional lending and decentralized finance, capturing the massive untapped potential of blockchain-powered financial services.</p>
+            <p>The global P2P lending market is projected to reach $1.2 trillion by 2030, growing at 28.8% CAGR. <span class="bracket-left" style="color: #ff6b9d; font-size: 1.2rem;">[</span><span style="color: #4ecdc4; font-size: 1.2rem;">P</span><span style="color: #ffa726; font-size: 0.9rem; position: relative; top: 0.1rem;">3</span><span class="bracket-right" style="color: #4ecdc4; font-size: 1.2rem;">]</span> <span style="color: #ffa726;">Lending</span> positions itself at the intersection of traditional lending and decentralized finance, capturing the massive untapped potential of blockchain-powered financial services.</p>
             
             <div class="stats-grid">
                 <div class="stat-card">
@@ -444,7 +580,7 @@
             <div class="container">
                 <div class="investment-content">
                     <h2>Investment Opportunity</h2>
-                    <p>Join us in building the next generation of decentralized financial infrastructure. P₃ Lending is raising $2.5M in Series A funding to accelerate development and market expansion.</p>
+                    <p>Join us in building the next generation of decentralized financial infrastructure. <span class="bracket-left" style="color: #ff6b9d; font-size: 1.2rem;">[</span><span style="color: #4ecdc4; font-size: 1.2rem;">P</span><span style="color: #ffa726; font-size: 0.9rem; position: relative; top: 0.1rem;">3</span><span class="bracket-right" style="color: #4ecdc4; font-size: 1.2rem;">]</span> <span style="color: #ffa726;">Lending</span> is raising $2.5M in Series A funding to accelerate development and market expansion.</p>
                     
                     <div class="investment-highlights">
                         <div class="highlight-item">
@@ -518,7 +654,7 @@
                 <a href="#">LinkedIn</a> | <a href="#">Twitter</a> | <a href="#">Medium</a>
             </div>
         </div>
-        <p>&copy; 2025 P₃ Lending. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+                <p>&copy; 2025 <span class="bracket-left" style="color: #ff6b9d; font-size: 1.1rem;">[</span><span style="color: #4ecdc4; font-size: 1.1rem;">P</span><span style="color: #ffa726; font-size: 0.8rem; position: relative; top: 0.1rem;">3</span><span class="bracket-right" style="color: #4ecdc4; font-size: 1.1rem;">]</span> <span style="color: #ffa726;">Lending</span>. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
     </div>
 </footer>
 
@@ -541,10 +677,10 @@
     window.addEventListener('scroll', () => {
         const header = document.querySelector('header');
         if (window.scrollY > 100) {
-            header.style.background = 'rgba(255, 255, 255, 0.95)';
+            header.style.background = 'rgba(0, 0, 0, 0.9)';
             header.style.backdropFilter = 'blur(20px)';
         } else {
-            header.style.background = 'rgba(255, 255, 255, 0.1)';
+            header.style.background = 'rgba(0, 0, 0, 0.7)';
             header.style.backdropFilter = 'blur(10px)';
         }
     });
