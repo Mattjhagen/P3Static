@@ -2,6 +2,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+header {
 
 /* Bitcoin-inspired DeFi lending platform design system */
 .vibe-navbar a.touch-hover {
@@ -15,7 +16,14 @@
  .vibe-navbar a:focus {
   outline: 2px solid var(--accent-bluegray);
   background: rgba(102,153,204,0.10);
-}
+ }
+
+ body {
+   display: flex
+     flex-direction: column
+   min-height: 100vh;
+ }
+   
 
 @layer base {
   :root {
@@ -186,6 +194,9 @@ footer {
   color: #fff;
   padding: 20px 0;
   text-align: center;
+  height: 50px;
+  margin-top: auto;
+}
 }
 
 .footer-nav a {
