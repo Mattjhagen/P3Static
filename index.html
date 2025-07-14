@@ -11,6 +11,16 @@
             padding: 0;
             box-sizing: border-box;
         }
+        // Enable hover effect on touch for header links
+document.querySelectorAll('.vibe-navbar a').forEach(el => {
+  el.addEventListener('touchstart', function() {
+    this.classList.add('touch-hover');
+  });
+  el.addEventListener('touchend', function() {
+    this.classList.remove('touch-hover');
+  });
+});
+
 
 ```
     body {
